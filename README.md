@@ -2,7 +2,7 @@
 Build war with maven and sparkjava framework
 
 Steps:
-==================================---------
+==================================---------=====
 
 1. Download a fresh [Tomcat 8 distribution](https://tomcat.apache.org/download-80.cgi)
 2. Clone this repository to your local machine
