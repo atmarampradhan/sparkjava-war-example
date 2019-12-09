@@ -141,12 +141,12 @@ pipeline {
       echo USER_NAME
         }
          emailext (
-          subject: "SUCCESSFUL: Job '${JOB_NAME} [${BUILD_NUMBER}]'",
+          subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
           body: """<p style="color:blue">Git commit trigger by user:  '${user}'</p>
              <p style="color:blue">Job trigger by user:  '${USER_NAME}'</p>
-            <p style="color:blue">SUCCESSFUL: Job Name '[${JOB_NAME}] Build Number :[${BUILD_NUMBER}] Jenkins User :[${USER_NAME}]':</p>
-            <p style="color:blue">Check Build output logs at  <a href='${BUILD_URL}execution/node/3/ws/buildOutput.txt'>Build logs</a> </p>
-            <p style="color:blue">Check console output at  <a href='${BUILD_URL}'>${JOB_NAME} [${BUILD_NUMBER}]</a> </p>""",to: 'devdevops117@gmail.com',
+            <p style="color:blue">SUCCESSFUL: Job Name '[${env.JOB_NAME}] Build Number :[${env.BUILD_NUMBER}] Jenkins User :[${USER_NAME}]':</p>
+            <p style="color:blue">Check Build output logs at  <a href='${env.BUILD_URL}execution/node/3/ws/buildOutput.txt'>Build logs</a> </p>
+            <p style="color:blue">Check console output at  <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a> </p>""",to: 'devdevops117@gmail.com',
           recipientProviders: [[$class: 'DevelopersRecipientProvider']]
         )
       }
