@@ -69,7 +69,47 @@ pipeline {
       }
     }
     
+    stage('Downloding Artifacts') {
+      steps {
+         rtServer (
+          id: 'artifactory',
+          url: 'http://34.93.184.75:8081/artifactory',
+          // If you're using username and password:
+          username: 'admin',
+          password: 'password'
+         // If you're using Credentials ID:
+       // credentialsId: 'ccrreeddeennttiiaall'
+      // If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
+        //bypassProxy: true
+      // Configure the connection timeout (in seconds).
+       // The default value (if not configured) is 300 seconds:
+       // timeout = 300
+     )
+        rtDownload (
+         serverId: 'artifactory',
+         spec: """{
+                    "files": [{
+                       "pattern": "example-repo-local/*.war",
+                       "target": "latest/opt/tomcat/latest-artifactory/"
+                    }]
+                 }"""
+ 
+    // Optional - Associate the downloaded files with the following custom build name and build number,
+    // as build dependencies.
+    // If not set, the files will be associated with the default build name and build number (i.e the
+    // the Jenkins job name and number).
+   // buildName: 'holyFrog',
+   // buildNumber: '42'
+   )
+      }
+    }
     
+   stage('Deploy') {
+      steps {
+        sh label: '', script: '''cd /var/lib/jenkins/workspace/Jenkins-demo-project/latest/opt/tomcat/latest-artifactory/
+        cp -f *sparkjava-hello-world*.war /opt/tomcat/latest/webapps/'''
+      }
+    }
     
   }
 }
