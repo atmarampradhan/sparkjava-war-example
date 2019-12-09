@@ -1,10 +1,14 @@
 pipeline {
   agent any
-   env.JAVA_HOME= tool name: 'myjava', type: 'jdk'
+   //env.JAVA_HOME= tool name: 'myjava', type: 'jdk'
     
-    def mavehHome= tool name: 'myMaven', type: 'maven'
+    //def mavehHome= tool name: 'myMaven', type: 'maven'
     
-    def mvnCMD= "${mavehHome}/bin/mvn"
+   // def mvnCMD= "${mavehHome}/bin/mvn"
+  tools { 
+        maven 'myMaven' 
+        jdk 'myjava' 
+    }
   stages {
     stage('FetchGitCode') {
       steps {
