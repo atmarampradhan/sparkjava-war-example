@@ -9,9 +9,9 @@ pipeline {
     
    // def mvnCMD= "${mavehHome}/bin/mvn"
 //  script{
-     def USER_NAME =""
-     def committerEmail =""
-     def user = ""
+    // def USER_NAME =""
+     //def committerEmail =""
+    // def user = ""
  // }
   tools { 
         maven 'myMaven' 
