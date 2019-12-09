@@ -54,8 +54,8 @@ pipeline {
          serverId: 'artifactory',
          spec: """{
                     "files": [{
-                       "pattern": "example-repo-local/*.war",
-                       "target": "latest/opt/tomcat/latest-artifactory/"
+                       "pattern": "/${WORKSPACE}/target/*.war",
+                       "target": "example-repo-local/"
                     }]
                  }"""
  
