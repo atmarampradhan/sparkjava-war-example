@@ -106,7 +106,7 @@ pipeline {
     
    stage('Deploy') {
       steps {
-        sh label: '', script: '''cd /var/lib/jenkins/workspace/Jenkins-demo-project/latest/opt/tomcat/latest-artifactory/
+        sh label: '', script: '''cd /var/lib/jenkins/workspace/sparkjava-war-example_master/latest/opt/tomcat/latest-artifactory/
         cp -f *sparkjava-hello-world*.war /opt/tomcat/latest/webapps/'''
       }
     }
