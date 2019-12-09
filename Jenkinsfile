@@ -1,3 +1,6 @@
+     def USER_NAME =""
+     def committerEmail =""
+     def user = ""
 pipeline {
   agent any
    //env.JAVA_HOME= tool name: 'myjava', type: 'jdk'
@@ -5,11 +8,11 @@ pipeline {
     //def mavehHome= tool name: 'myMaven', type: 'maven'
     
    // def mvnCMD= "${mavehHome}/bin/mvn"
-  script{
+//  script{
      def USER_NAME =""
      def committerEmail =""
      def user = ""
-  }
+ // }
   tools { 
         maven 'myMaven' 
         jdk 'myjava' 
