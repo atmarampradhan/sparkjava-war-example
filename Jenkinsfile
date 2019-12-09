@@ -5,6 +5,11 @@ pipeline {
     //def mavehHome= tool name: 'myMaven', type: 'maven'
     
    // def mvnCMD= "${mavehHome}/bin/mvn"
+  script{
+     def USER_NAME =""
+     def committerEmail =""
+     def user = ""
+  }
   tools { 
         maven 'myMaven' 
         jdk 'myjava' 
@@ -108,6 +113,39 @@ pipeline {
       steps {
         sh label: '', script: '''cd /var/lib/jenkins/workspace/sparkjava-war-example_master/latest/opt/tomcat/latest-artifactory/
         cp -f *sparkjava-hello-world*.war /opt/tomcat/latest/webapps/'''
+      }
+    }
+    
+   stage('Notify') {
+      steps {
+        script{
+          user=sh (
+      script: 'git --no-pager show -s --format=\'%ae\'',
+      returnStdout: true
+     ).trim()
+    echo "Code commiter Name: ${user}"
+    
+     
+     wrap([$class: 'BuildUser']) {
+          script {
+             USER_NAME = "${BUILD_USER}"
+             echo USER_NAME
+          }
+        }
+ 
+    
+      echo "Build user Name: ${USER_NAME}"  
+      echo USER_NAME
+        }
+         emailext (
+          subject: "SUCCESSFUL: Job '${JOB_NAME} [${BUILD_NUMBER}]'",
+          body: """<p style="color:blue">Git commit trigger by user:  '${user}'</p>
+             <p style="color:blue">Job trigger by user:  '${USER_NAME}'</p>
+            <p style="color:blue">SUCCESSFUL: Job Name '[${JOB_NAME}] Build Number :[${BUILD_NUMBER}] Jenkins User :[${USER_NAME}]':</p>
+            <p style="color:blue">Check Build output logs at  <a href='${BUILD_URL}execution/node/3/ws/buildOutput.txt'>Build logs</a> </p>
+            <p style="color:blue">Check console output at  <a href='${BUILD_URL}'>${JOB_NAME} [${BUILD_NUMBER}]</a> </p>""",to: 'devdevops117@gmail.com',
+          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+        )
       }
     }
     
