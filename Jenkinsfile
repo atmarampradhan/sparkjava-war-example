@@ -131,7 +131,7 @@ pipeline {
      
      wrap([$class: 'BuildUser']) {
           script {
-             USER_NAME = "${env.BUILD_USER}"
+             USER_NAME = sh "${BUILD_USER}"
              echo USER_NAME
           }
         }
