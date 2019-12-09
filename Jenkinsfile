@@ -17,7 +17,7 @@ pipeline {
     }
    stage('Compile') {
       steps {
-        sh "${mvnCMD} compile"
+        sh "mvn compile"
        echo "Maven packaging -DskipTests"
       }
     }
