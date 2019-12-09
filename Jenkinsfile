@@ -21,5 +21,18 @@ pipeline {
        echo "Maven packaging -DskipTests"
       }
     }
+    stage('CodeReview') {
+      steps {
+        sh "mvn -batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd"
+        pmd canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/pmd.xml', unHealthy: ''
+       echo "Pmd CodeReview"
+      }
+    }
+     stage('build') {
+      steps {
+        sh "mvn package -DskipTests -l buildOutput.txt"
+       echo "Maven building and creating war"
+      }
+    }
   }
 }
