@@ -137,7 +137,7 @@ pipeline {
         }
  
     
-      echo "Build user Name: ${USER_NAME}"  
+      echo "Build user Name: ${env.USER_NAME}"  
       echo USER_NAME
         }
          emailext (
