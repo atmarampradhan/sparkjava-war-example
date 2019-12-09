@@ -129,21 +129,23 @@ pipeline {
     echo "Code commiter Name: ${user}"
     
      
-     wrap([$class: 'BuildUser']) {
+   /*  wrap([$class: 'BuildUser']) {
           script {
              USER_NAME = sh "${BUILD_USER}"
              echo USER_NAME
           }
         }
+         echo "Build user Name: ${env.USER_NAME}"  
+      echo USER_NAME
+      <p style="color:blue">Job trigger by user:  '${USER_NAME}'</p>
+        */
  
     
-      echo "Build user Name: ${env.USER_NAME}"  
-      echo USER_NAME
+     
         }
          emailext (
           subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
           body: """<p style="color:blue">Git commit trigger by user:  '${user}'</p>
-             <p style="color:blue">Job trigger by user:  '${USER_NAME}'</p>
             <p style="color:blue">SUCCESSFUL: Job Name '[${env.JOB_NAME}] Build Number :[${env.BUILD_NUMBER}] Jenkins User :[${USER_NAME}]':</p>
             <p style="color:blue">Check Build output logs at  <a href='${env.BUILD_URL}execution/node/3/ws/buildOutput.txt'>Build logs</a> </p>
             <p style="color:blue">Check console output at  <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a> </p>""",to: 'devdevops117@gmail.com',
