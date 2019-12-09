@@ -34,5 +34,33 @@ pipeline {
        echo "Maven building and creating war"
       }
     }
+     stage('Uploding Artifacts') {
+      steps {
+         def server = Artifactory.newServer url: 'http://34.93.184.75:8081/artifactory', username: 'admin', password: 'password'
+                 def uploadSpec = """{
+                    "files": [{
+                       "pattern": "/${WORKSPACE}/target/*.war",
+                       "target": "example-repo-local/"
+                    }]
+                 }"""
+
+                 server.upload(uploadSpec)
+      }
+    }
+    
+     stage('Downloading Artifacts') {
+      steps {
+         def server = Artifactory.newServer url: 'http://34.93.184.75:8081/artifactory', username: 'admin', password: 'password'
+                 def downloadSpec = """{
+                    "files": [{
+                       "pattern": "example-repo-local/*.war",
+                       "target": "latest/opt/tomcat/latest-artifactory/"
+                    }]
+                 }"""
+
+                server.download(downloadSpec)
+      }
+    }
+    
   }
 }
