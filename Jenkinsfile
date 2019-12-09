@@ -52,14 +52,12 @@ pipeline {
      )
         rtUpload (
          serverId: 'artifactory',
-         spec: '''{
-          "files": [
-            {
-              "pattern": "/${WORKSPACE}/target/*.war",
-              "target": "example-repo-local/",
-            }
-          ]
-       }''',
+         spec: """{
+                    "files": [{
+                       "pattern": "example-repo-local/*.war",
+                       "target": "latest/opt/tomcat/latest-artifactory/"
+                    }]
+                 }"""
  
     // Optional - Associate the downloaded files with the following custom build name and build number,
     // as build dependencies.
