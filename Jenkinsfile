@@ -20,7 +20,7 @@ pipeline {
   stages {
     stage('FetchGitCode') {
       steps {
-        git(url: 'https://github.com/atmarampradhan/sparkjava-war-example.git', branch: 'master', poll: true)
+        git(url: 'https://github.com/atmarampradhan/sparkjava-war-example.git', branch: 'child', poll: true)
       }
     }
    stage('Compile') {
